@@ -1,0 +1,47 @@
+
+sth.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+solo_middle
+  rotate: false
+  xy: 2, 2
+  size: 61, 283
+  orig: 61, 283
+  offset: 0, 0
+  index: -1
+solo_edge
+  rotate: false
+  xy: 2, 287
+  size: 55, 283
+  orig: 55, 283
+  offset: 0, 0
+  index: -1
+will
+  rotate: false
+  xy: 65, 2
+  size: 89, 82
+  orig: 89, 82
+  offset: 0, 0
+  index: -1
+esgoto
+  rotate: false
+  xy: 2, 572
+  size: 32, 163
+  orig: 32, 163
+  offset: 0, 0
+  index: -1
+coletavel1
+  rotate: false
+  xy: 156, 2
+  size: 62, 59
+  orig: 62, 59
+  offset: 0, 0
+  index: -1
+coletavel2
+  rotate: false
+  xy: 2, 737
+  size: 60, 59
+  orig: 60, 59
+  offset: 0, 0
+  index: -1
