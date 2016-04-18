@@ -5,9 +5,12 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.seethehorizon.game.model.AbstractGameObject;
+import com.seethehorizon.game.model.Coletavel1;
+import com.seethehorizon.game.model.Coletavel2;
 import com.seethehorizon.game.model.Esgoto;
 import com.seethehorizon.game.model.Predios;
 import com.seethehorizon.game.model.Solo;
+import com.seethehorizon.game.model.Will;
 
 /**
  * Created by Francisco on 10/04/2016.
@@ -25,7 +28,7 @@ public class Level {
 
         private int color;
 
-        private BlockType(int r, int g, int b) {
+        BlockType(int r, int g, int b) {
             color = r << 24 | g << 16 | b << 8 | 0xff;
         }
 
@@ -38,6 +41,9 @@ public class Level {
         }
     }
 
+    public Will will;
+    public Array<Coletavel1> coletaveis1;
+    public Array<Coletavel2> coletaveis2;
     public Array<Solo> solos;
     public Predios predios;
     public Esgoto esgoto;
@@ -47,6 +53,12 @@ public class Level {
     }
 
     private void init(String fileName) {
+        //personagem
+        will = null;
+        //objetos coletaveis
+        coletaveis1 = new Array<Coletavel1>();
+        coletaveis2 = new Array<Coletavel2>();
+        //objetos do cenario
         solos = new Array<Solo>();
         //carregando arquivo que representa um level
         Pixmap pixmap = new Pixmap(Gdx.files.internal(fileName));
@@ -76,11 +88,20 @@ public class Level {
                         solos.get(solos.size - 1).increaseLenght(1);
                     }
                 } else if (BlockType.PLAYER_SPAWNPOINT.sameColor(currentPixel)) { //player sapwn point
-                    //faz nada
-                } else if(BlockType.ITEM_COLETAVEL_1.sameColor(currentPixel)){ //para coletavel 1
-                    //faz nada
-                } else if(BlockType.ITEM_COLETAVEL_2.sameColor(currentPixel)){
-                    //faz nada
+                    object = new Will();
+                    offsetHeight = -3.0f;
+                    object.position.set(pixelX, baseHeight * object.dimension.y + offsetHeight);
+                    will = (Will) object;
+                } else if (BlockType.ITEM_COLETAVEL_1.sameColor(currentPixel)) { //para coletavel 1
+                    object = new Coletavel1();
+                    offsetHeight = -1.5f;
+                    object.position.set(pixelX, baseHeight * object.dimension.y + offsetHeight);
+                    coletaveis1.add((Coletavel1) object);
+                } else if (BlockType.ITEM_COLETAVEL_2.sameColor(currentPixel)) {
+                    object = new Coletavel2();
+                    offsetHeight = -1.5f;
+                    object.position.set(pixelX, baseHeight * object.dimension.y + offsetHeight);
+                    coletaveis2.add((Coletavel2) object);
                 } else { //objeto desconhecido
                     //obtem rgb
                     int r = 0xff & (currentPixel >>> 24);
@@ -88,7 +109,7 @@ public class Level {
                     int b = 0xff & (currentPixel >>> 8);
                     int a = 0xff & currentPixel;
                     Gdx.app.error(TAG, "Objeto desconhecido x<" + pixelX + "> y<"
-                            + pixelY + ">: r<" + r+ "> g<" + g + "> b<" + b + "> a<" + a + ">");
+                            + pixelY + ">: r<" + r + "> g<" + g + "> b<" + b + "> a<" + a + ">");
                 }
                 lastPixel = currentPixel;
             }
@@ -105,11 +126,31 @@ public class Level {
 
     }
 
+    public void update(float deltaTime){
+        will.update(deltaTime);
+        for(Solo solo : solos){
+            solo.update(deltaTime);
+        }
+        for(Coletavel1 c1 : coletaveis1){
+            c1.update(deltaTime);
+        }
+        for(Coletavel2 c2 : coletaveis2){
+            c2.update(deltaTime);
+        }
+    }
+
     public void render(SpriteBatch batch) {
         predios.render(batch);
-        for(Solo solo : solos){
+        esgoto.render(batch);
+        for (Solo solo : solos) {
             solo.render(batch);
         }
-        esgoto.render(batch);
+        for(Coletavel1 c1 : coletaveis1){
+            c1.render(batch);
+        }
+        for(Coletavel2 c2 : coletaveis2){
+            c2.render(batch);
+        }
+        will.render(batch);
     }
 }

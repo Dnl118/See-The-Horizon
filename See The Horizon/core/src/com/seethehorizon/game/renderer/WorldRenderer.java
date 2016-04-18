@@ -40,16 +40,6 @@ public class WorldRenderer implements Disposable {
         renderGui(spriteBatch);
     }
 
-//    private void renderTestObjects() {
-//        worldController.cameraHelper.applyTo(camera);
-//        spriteBatch.setProjectionMatrix(camera.combined);
-//        spriteBatch.begin();
-//        for(Sprite sprite : worldController.testSprites) {
-//            sprite.draw(spriteBatch);
-//        }
-//        spriteBatch.end();
-//    }
-
     public void resize(int width, int height) {
         camera.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) * width;
         camera.update();
@@ -119,7 +109,7 @@ public class WorldRenderer implements Disposable {
         // desenha vidas
         renderGuiExtraLive(batch);
         // desenha o fps
-        renderGuiFpsCounter(batch);
+        //renderGuiFpsCounter(batch);
         batch.end();
     }
 

@@ -30,6 +30,8 @@ public class Solo extends AbstractGameObject {
 
     public void setLength(int lenght) {
         this.length = lenght;
+        //tambem seta bounding box para deteccao de colisao
+        bounds.set(0, 0, dimension.x * length, dimension.y);
     }
 
     public void increaseLenght(int qtd) {
@@ -55,7 +57,7 @@ public class Solo extends AbstractGameObject {
         region = soloMiddle;
         for (int i = 0; i < length; i++) {
             batch.draw(region.getTexture(), position.x + relX, position.y + relY,
-                    origin.x, origin.y, dimension.x / 4, dimension.y, scale.x, scale.y,
+                    origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y,
                     rotation, region.getRegionX(), region.getRegionY(), region.getRegionWidth(),
                     region.getRegionHeight(), false, false);
             relX += dimension.x;

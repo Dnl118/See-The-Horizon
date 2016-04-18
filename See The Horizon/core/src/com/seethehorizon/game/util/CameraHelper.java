@@ -5,10 +5,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.seethehorizon.game.model.AbstractGameObject;
 
-import sun.security.krb5.internal.LoginOptions;
-
 /**
- * Created by Francisco on 03/04/2016.
+ * Created by Danilo on 03/04/2016.
  */
 public class CameraHelper {
 
