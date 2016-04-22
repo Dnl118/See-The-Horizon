@@ -1,5 +1,6 @@
 package com.seethehorizon.game.model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.seethehorizon.game.assets.Assets;
@@ -64,15 +65,17 @@ public class Will extends AbstractGameObject {
     public void setJumping(boolean jumpKeyPressed) {
         switch (jumpState) {
             case GROUNDED:
+                //Gdx.app.log(TAG, "GROUNDED");
                 //personagem esta em cima de uma plataforma
                 if (jumpKeyPressed) {
                     //zera tempo de pulo
                     //seta seu estado como groudned
                     timeJumping = 0;
-                    jumpState = JUMP_STATE.GROUNDED;
+                    jumpState = JUMP_STATE.JUMP_RISING;
                 }
                 break;
             case JUMP_RISING:
+                //Gdx.app.log(TAG, "JUMP_RISING");
                 //pulando e subindo
                 if (!jumpKeyPressed) {
                     //se esta pulando e subindo mas botao que faz o
@@ -82,8 +85,10 @@ public class Will extends AbstractGameObject {
                     break;
                 }
             case FALLING:
+                //Gdx.app.log(TAG, "FALLING");
                 //esta caindo
             case JUMP_FALLING:
+                //Gdx.app.log(TAG, "JUMP_FALLING");
                 //esta caindo apos realizar um salto
                 if (jumpKeyPressed && hasSpecialPower) {
                     timeJumping = JUMP_TIME_OFFSET_FLYING;
@@ -109,6 +114,10 @@ public class Will extends AbstractGameObject {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
+        //if para teste, retirar depois
+        if(position.y < -1){
+            position.y = 2;
+        }
         if (velocity.x != 0) {
             viewDirection = velocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
         }

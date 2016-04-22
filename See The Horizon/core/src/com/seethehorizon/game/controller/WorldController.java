@@ -11,7 +11,7 @@ import com.seethehorizon.game.util.CameraHelper;
 import com.seethehorizon.game.util.Constants;
 
 /**
- * Created by Danilo on 03/04/2016.
+ * Created by Francisco on 03/04/2016.
  */
 public class WorldController {
 
@@ -43,6 +43,7 @@ public class WorldController {
     }
 
     public void update(float deltaTime) {
+        handleInputGame(deltaTime);
         level.update(deltaTime);
         testCollisions();
         cameraHelper.update(deltaTime);
@@ -97,13 +98,13 @@ public class WorldController {
 
     private void onCollisionWillWithSolo(Solo solo) {
         Will will = level.will;
-        float heigthDifference = Math.abs(will.position.y - (will.position.y + solo.bounds.getHeight()));
-        if (heigthDifference > 0.25f) {
-            boolean hitHightEdge = will.position.x > (solo.position.x + solo.bounds.getWidth() / 2.0f);
-            if (hitHightEdge) {
-                will.position.x = solo.position.x + solo.bounds.getWidth();
+        float heightDifference = Math.abs(will.position.y - (solo.position.y + solo.bounds.height));
+        if (heightDifference > 0.25f) {
+            boolean hitLeftEdge = will.position.x > solo.position.x + solo.bounds.width / 2.0f;
+            if (hitLeftEdge) {
+                will.position.x = solo.position.x + solo.bounds.width;
             } else {
-                will.position.x = solo.position.x - will.bounds.getWidth();
+                will.position.x = solo.position.x - will.bounds.width;
             }
             return;
         }
@@ -112,11 +113,11 @@ public class WorldController {
                 break;
             case FALLING:
             case JUMP_FALLING:
-                will.position.y = will.position.y + will.bounds.getHeight() + will.origin.y;
+                will.position.y = solo.position.y + will.bounds.height + will.origin.y;
                 will.jumpState = Will.JUMP_STATE.GROUNDED;
                 break;
             case JUMP_RISING:
-                will.position.y = solo.position.y + solo.bounds.getHeight() + will.origin.y;
+                will.position.y = solo.position.y + will.bounds.height + will.origin.y;
                 break;
         }
     }
@@ -131,6 +132,16 @@ public class WorldController {
         c2.collected = true;
         score += c2.getScore();
         Gdx.app.log(TAG, "c2 coletado");
+    }
+
+    private void handleInputGame(float deltaTime){
+        //level.will.velocity.x = level.will.maxVelocity.x; //teste de movimento lateral
+        if(Gdx.input.isTouched()){
+            //Gdx.app.log(TAG, "Tela input8");
+            level.will.setJumping(true);
+        } else {
+            level.will.setJumping(false);
+        }
     }
 
 }

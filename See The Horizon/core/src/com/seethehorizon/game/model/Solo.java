@@ -25,7 +25,7 @@ public class Solo extends AbstractGameObject {
         soloEdg = Assets.instance.solo.edge;
         soloMiddle = Assets.instance.solo.middle;
         //definindo comprimento inicial
-        length = 1;
+        setLength(1);
     }
 
     public void setLength(int lenght) {
@@ -35,7 +35,7 @@ public class Solo extends AbstractGameObject {
     }
 
     public void increaseLenght(int qtd) {
-        length += qtd;
+        setLength(length + qtd);
     }
 
     @Override
