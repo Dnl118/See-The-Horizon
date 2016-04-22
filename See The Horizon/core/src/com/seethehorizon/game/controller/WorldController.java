@@ -1,6 +1,8 @@
 package com.seethehorizon.game.controller;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
 import com.seethehorizon.game.levels.Level;
 import com.seethehorizon.game.model.Coletavel1;
@@ -27,11 +29,14 @@ public class WorldController {
     private Rectangle rect1 = new Rectangle();
     private Rectangle rect2 = new Rectangle();
 
+    private boolean accelerometerAvailable;
+
     public WorldController() {
         init();
     }
 
     private void init() {
+        accelerometerAvailable = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
         cameraHelper = new CameraHelper();
         lives = Constants.LIVES_START;
         initLevel();
@@ -134,14 +139,27 @@ public class WorldController {
         Gdx.app.log(TAG, "c2 coletado");
     }
 
-    private void handleInputGame(float deltaTime){
+    private void handleInputGame(float deltaTime) {
         //level.will.velocity.x = level.will.maxVelocity.x; //teste de movimento lateral
-        if(Gdx.input.isTouched()){
+        if (accelerometerAvailable) {
+            float amount = Gdx.input.getAccelerometerY() / 10.0f;
+            amount *= 90.0f;
+            if (Math.abs(amount) < Constants.MIN_ANGLE_FOR_ACCELERATION) {
+                amount = 0;
+            } else {
+                amount /= Constants.MAX_ANGLE_FOR_ACCELERATION;
+            }
+            level.will.velocity.x = level.will.maxVelocity.x * amount;
+        } else {
+            level.will.velocity.x = level.will.maxVelocity.x;
+        }
+        if (Gdx.input.isTouched()) {
             //Gdx.app.log(TAG, "Tela input8");
             level.will.setJumping(true);
         } else {
             level.will.setJumping(false);
         }
     }
+
 
 }
