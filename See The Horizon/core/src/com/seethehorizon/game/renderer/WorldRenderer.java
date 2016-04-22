@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.seethehorizon.game.assets.Assets;
 import com.seethehorizon.game.controller.WorldController;
@@ -111,6 +112,21 @@ public class WorldRenderer implements Disposable {
         // desenha o fps
         renderGuiFpsCounter(batch);
         batch.end();
+    }
+
+    private void renderGuiGameOverMessage (SpriteBatch batch) {
+        //centralizando mensagem
+        float x = cameraGUI.viewportWidth / 2;
+        float y = cameraGUI.viewportHeight / 2;
+        if (worldController.isGameOver()) {
+            BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
+            fontGameOver.setColor(1, 0.75f, 0.25f, 1);
+            //draw game over
+            fontGameOver.draw(batch, "GAME OVER", x, y, 0, 0, 0, 0, true);
+            //drawMultiLine(batch, "GAME OVER", x, y, 0,
+                   // Align.center);
+            fontGameOver.setColor(1, 1, 1, 1);
+        }
     }
 
 }

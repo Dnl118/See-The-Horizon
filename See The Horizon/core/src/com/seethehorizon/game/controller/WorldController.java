@@ -29,6 +29,8 @@ public class WorldController {
     private Rectangle rect1 = new Rectangle();
     private Rectangle rect2 = new Rectangle();
 
+    private float timeToRespawn;
+
     private boolean accelerometerAvailable;
 
     public WorldController() {
@@ -39,19 +41,44 @@ public class WorldController {
         accelerometerAvailable = Gdx.input.isPeripheralAvailable(Input.Peripheral.Accelerometer);
         cameraHelper = new CameraHelper();
         lives = Constants.LIVES_START;
+        timeToRespawn = 0;
         initLevel();
     }
 
     private void initLevel() {
         score = 0;
         level = new Level(Constants.LEVEL_01);
+        cameraHelper.setTarget(level.will);
     }
 
     public void update(float deltaTime) {
-        handleInputGame(deltaTime);
+        if(isGameOver()){
+            timeToRespawn -= deltaTime;
+            if(timeToRespawn < 0){
+                init();
+            }
+        } else {
+            handleInputGame(deltaTime);
+        }
         level.update(deltaTime);
         testCollisions();
         cameraHelper.update(deltaTime);
+        if(!isGameOver() && isWillInWater()){
+            lives--;
+            if(isGameOver()){
+                timeToRespawn = Constants.TIME_TO_RESPAWN;
+            } else {
+                initLevel();
+            }
+        }
+    }
+
+    public boolean isGameOver(){
+        return lives < 0;
+    }
+
+    public boolean isWillInWater () {
+        return level.will.position.y < -5;
     }
 
     private void testCollisions() {
@@ -160,6 +187,8 @@ public class WorldController {
             level.will.setJumping(false);
         }
     }
+
+
 
 
 }
