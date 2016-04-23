@@ -5,21 +5,20 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.seethehorizon.game.assets.Assets;
 
 /**
- * Created by Francisco on 16/04/2016.
- * Coeltavel que dara pontos ao Will
+ * Created by Francisco on 23/04/2016.
  */
-public class Coletavel1 extends AbstractGameObject {
+public class Live extends AbstractGameObject {
 
-    private TextureRegion regColetavel1;
+    private TextureRegion regLive;
     public boolean collected;
 
-    public Coletavel1(){
+    public Live(){
         init();
     }
 
-    private void init() {
+    private void init(){
         dimension.set(0.5f, 0.5f);
-        regColetavel1 = Assets.instance.coletavel1.coletavel1;
+        regLive = Assets.instance.will.willAsset;
         //seta bounding box para detectar colisao
         bounds.set(0, 0, dimension.x, dimension.y);
         collected = false;
@@ -27,20 +26,22 @@ public class Coletavel1 extends AbstractGameObject {
 
     @Override
     public void render(SpriteBatch batch) {
-        //se moeda foi coletada sai do metiodo
-        if (collected) {
+        if(collected){
             return;
         }
         TextureRegion reg = null;
-        reg = regColetavel1;
+        reg = regLive;
         batch.draw(reg.getTexture(), position.x, position.y,
                 origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y,
                 rotation, reg.getRegionX(), reg.getRegionY(),
                 reg.getRegionWidth(), reg.getRegionHeight(), false, false);
     }
 
-    public int getScore() {
-        //retorna pontos que o coletavel da
+    public int getScore(){
+        //retorna pontos
         return 50;
     }
+
+
+
 }

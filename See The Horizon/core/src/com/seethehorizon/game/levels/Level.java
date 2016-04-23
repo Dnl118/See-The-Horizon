@@ -8,6 +8,7 @@ import com.seethehorizon.game.model.AbstractGameObject;
 import com.seethehorizon.game.model.Coletavel1;
 import com.seethehorizon.game.model.Coletavel2;
 import com.seethehorizon.game.model.Esgoto;
+import com.seethehorizon.game.model.Live;
 import com.seethehorizon.game.model.Predios;
 import com.seethehorizon.game.model.Solo;
 import com.seethehorizon.game.model.Will;
@@ -24,7 +25,8 @@ public class Level {
         SOLO(0, 255, 0), //verde
         PLAYER_SPAWNPOINT(255, 255, 255), //branco
         ITEM_COLETAVEL_1(255, 0, 255), //rosa
-        ITEM_COLETAVEL_2(255, 255, 0); //amarelo
+        ITEM_COLETAVEL_2(255, 255, 0), //amarelo
+        EXTRA_LIVE(255,250, 0); //pensar em cor para vida extra
 
         private int color;
 
@@ -44,6 +46,7 @@ public class Level {
     public Will will;
     public Array<Coletavel1> coletaveis1;
     public Array<Coletavel2> coletaveis2;
+    public Array<Live> extraLives;
     public Array<Solo> solos;
     public Predios predios;
     public Esgoto esgoto;
@@ -58,6 +61,7 @@ public class Level {
         //objetos coletaveis
         coletaveis1 = new Array<Coletavel1>();
         coletaveis2 = new Array<Coletavel2>();
+        extraLives = new Array<Live>();
         //objetos do cenario
         solos = new Array<Solo>();
         //carregando arquivo que representa um level
@@ -102,6 +106,11 @@ public class Level {
                     offsetHeight = -1.5f;
                     object.position.set(pixelX, baseHeight * object.dimension.y + offsetHeight);
                     coletaveis2.add((Coletavel2) object);
+                } else if(BlockType.EXTRA_LIVE.sameColor(currentPixel)){
+                    object = new Live();
+                    offsetHeight = -1.5f;
+                    object.position.set(pixelX, baseHeight * object.dimension.y + offsetHeight);
+                    extraLives.add((Live) object);
                 } else { //objeto desconhecido
                     //obtem rgb
                     int r = 0xff & (currentPixel >>> 24);
@@ -150,6 +159,9 @@ public class Level {
         }
         for(Coletavel2 c2 : coletaveis2){
             c2.render(batch);
+        }
+        for(Live live : extraLives){
+            live.render(batch);
         }
         will.render(batch);
     }

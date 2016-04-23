@@ -14,6 +14,7 @@ public class Constants{
     public static final String TEXTURE_ATLAS_OBJECTS = "images/see_the_horizon.pack";
 
     public static final int LIVES_START = 3;
+    public static final int MAX_LIVES = 3;
 
     public static final float POWER_DURATION  = 5.0f;
 

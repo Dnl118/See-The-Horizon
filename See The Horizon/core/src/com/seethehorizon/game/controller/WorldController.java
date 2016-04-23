@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.seethehorizon.game.levels.Level;
 import com.seethehorizon.game.model.Coletavel1;
 import com.seethehorizon.game.model.Coletavel2;
+import com.seethehorizon.game.model.Live;
 import com.seethehorizon.game.model.Solo;
 import com.seethehorizon.game.model.Will;
 import com.seethehorizon.game.util.CameraHelper;
@@ -126,6 +127,19 @@ public class WorldController {
             onCollisionWillWithColetavel2(c2);
             break;
         }
+        for(Live live : level.extraLives){
+            if(live.collected){
+                continue;
+            }
+            rect2.set(live.position.x, live.position.y,
+                    live.bounds.getWidth(), live.bounds.getHeight());
+            if (!rect1.overlaps(rect2)) {
+                //idem will com solo
+                continue;
+            }
+            onCollisionWillWithLive(live);
+            break;
+        }
     }
 
     private void onCollisionWillWithSolo(Solo solo) {
@@ -166,6 +180,15 @@ public class WorldController {
         Gdx.app.log(TAG, "c2 coletado");
     }
 
+    private void onCollisionWillWithLive(Live live){
+        live.collected = true;
+        score += live.getScore();
+        if(lives < Constants.MAX_LIVES - 1) {
+            lives += 1;
+        }
+        Gdx.app.log(TAG, "extra live coletado");
+    }
+
     private void handleInputGame(float deltaTime) {
         //level.will.velocity.x = level.will.maxVelocity.x; //teste de movimento lateral
         if (accelerometerAvailable) {
@@ -187,8 +210,5 @@ public class WorldController {
             level.will.setJumping(false);
         }
     }
-
-
-
 
 }
