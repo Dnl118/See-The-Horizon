@@ -115,9 +115,6 @@ public class Will extends AbstractGameObject {
     public void update(float deltaTime) {
         super.update(deltaTime);
         //if para teste, retirar depois
-//        if(position.y < -1){
-//            position.y = 2;
-//        }
         if (velocity.x != 0) {
             viewDirection = velocity.x < 0 ? VIEW_DIRECTION.LEFT : VIEW_DIRECTION.RIGHT;
         }

@@ -21,7 +21,7 @@ public class Predios extends AbstractGameObject {
     }
 
     private void init() {
-        dimension.set(10, 2);
+        dimension.set(10, 4);
 
         predios = Assets.instance.levelDecoration.predios;
 

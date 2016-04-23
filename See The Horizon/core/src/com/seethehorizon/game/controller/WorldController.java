@@ -204,7 +204,7 @@ public class WorldController {
             level.will.velocity.x = level.will.maxVelocity.x;
         }
         if (Gdx.input.isTouched()) {
-            //Gdx.app.log(TAG, "Tela input8");
+            //Gdx.app.log(TAG, "Tela input");
             level.will.setJumping(true);
         } else {
             level.will.setJumping(false);

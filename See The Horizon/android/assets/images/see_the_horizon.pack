@@ -6,49 +6,56 @@ repeat: none
 predios
   rotate: false
   xy: 2, 2
-  size: 2416, 887
-  orig: 2416, 887
+  size: 652, 525
+  orig: 652, 525
+  offset: 0, 0
+  index: -1
+cristal1
+  rotate: false
+  xy: 656, 2
+  size: 234, 368
+  orig: 234, 368
+  offset: 0, 0
+  index: -1
+cristal2
+  rotate: false
+  xy: 2, 529
+  size: 272, 313
+  orig: 272, 313
   offset: 0, 0
   index: -1
 solo_middle
   rotate: false
-  xy: 2420, 2
+  xy: 892, 2
   size: 61, 283
   orig: 61, 283
   offset: 0, 0
   index: -1
 solo_edge
   rotate: false
-  xy: 2420, 287
+  xy: 955, 2
   size: 55, 283
   orig: 55, 283
   offset: 0, 0
   index: -1
+will
+  rotate: false
+  xy: 276, 529
+  size: 274, 268
+  orig: 274, 268
+  offset: 0, 0
+  index: -1
 esgoto
   rotate: false
-  xy: 2420, 572
+  xy: 2, 844
   size: 32, 163
   orig: 32, 163
   offset: 0, 0
   index: -1
-will
+coin
   rotate: false
-  xy: 2, 891
-  size: 89, 82
-  orig: 89, 82
-  offset: 0, 0
-  index: -1
-coletavel1
-  rotate: false
-  xy: 93, 891
-  size: 62, 59
-  orig: 62, 59
-  offset: 0, 0
-  index: -1
-coletavel2
-  rotate: false
-  xy: 93, 952
-  size: 60, 59
-  orig: 60, 59
+  xy: 656, 372
+  size: 114, 112
+  orig: 114, 112
   offset: 0, 0
   index: -1

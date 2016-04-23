@@ -97,7 +97,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion coletavel1;
 
         public AssetColetavel1(TextureAtlas textureAtlas){
-            coletavel1 = textureAtlas.findRegion("coletavel1");
+            coletavel1 = textureAtlas.findRegion("cristal1");
         }
     }
 
@@ -105,7 +105,7 @@ public class Assets implements Disposable, AssetErrorListener {
         public final TextureAtlas.AtlasRegion coletavel2;
 
         public AssetColetavel2(TextureAtlas textureAtlas){
-            coletavel2 = textureAtlas.findRegion("coletavel2");
+            coletavel2 = textureAtlas.findRegion("coin");
         }
     }
 
