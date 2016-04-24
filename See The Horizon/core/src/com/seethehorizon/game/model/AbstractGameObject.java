@@ -78,7 +78,7 @@ public abstract class AbstractGameObject {
             if(velocity.y > 0){
                 velocity.y = Math.max(velocity.y - friction.y * deltaTime, 0);
             } else {
-                velocity.y = Math.max(velocity.y + friction.y * deltaTime, 0);
+                velocity.y = Math.min(velocity.y + friction.y * deltaTime, 0);
             }
         }
         //aplica aceleracao
