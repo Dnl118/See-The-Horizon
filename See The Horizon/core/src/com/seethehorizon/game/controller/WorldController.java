@@ -213,7 +213,7 @@ public class WorldController {
     private void onCollisionWillWithLive(Live live){
         live.collected = true;
         score += live.getScore();
-        if(lives < Constants.MAX_LIVES - 1) {
+        if(lives < Constants.MAX_LIVES) {
             lives += 1;
         }
         Gdx.app.log(TAG, "extra live coletado");

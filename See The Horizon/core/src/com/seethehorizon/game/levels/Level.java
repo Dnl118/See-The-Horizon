@@ -102,7 +102,7 @@ public class Level {
                     offsetHeight = -3.0f;
                     object.position.set(pixelX, baseHeight * object.dimension.y + offsetHeight);
                     will = (Will) object;
-                } else if (BlockType.COIN.sameColor(currentPixel)) { //para coin 1
+                } else if (BlockType.COIN.sameColor(currentPixel)) { //para coin
                     object = new Coin();
                     offsetHeight = -1.5f;
                     object.position.set(pixelX, baseHeight * object.dimension.y + offsetHeight);
