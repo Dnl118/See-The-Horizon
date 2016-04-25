@@ -22,8 +22,9 @@ public class Assets implements Disposable, AssetErrorListener {
 
     public AssetWill will;
     public AssetSolo solo;
-    public AssetColetavel1 coletavel1;
-    public AssetColetavel2 coletavel2;
+    public AssetCoin coin;
+    public AssetCristal1 cristal1;
+    public AssetCristal2 cristal2;
     public AssetLevelDecoration levelDecoration;
     public AssetFonts fonts;
 
@@ -55,8 +56,9 @@ public class Assets implements Disposable, AssetErrorListener {
         fonts = new AssetFonts();
         will = new AssetWill(atlas);
         solo = new AssetSolo(atlas);
-        coletavel1 = new AssetColetavel1(atlas);
-        coletavel2 = new AssetColetavel2(atlas);
+        coin = new AssetCoin(atlas);
+        cristal1 = new AssetCristal1(atlas);
+        cristal2 = new AssetCristal2(atlas);
 
     }
 
@@ -93,19 +95,27 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
-    public class AssetColetavel1{
-        public final TextureAtlas.AtlasRegion coletavel1;
+    public class AssetCoin{
+        public final TextureAtlas.AtlasRegion coin;
 
-        public AssetColetavel1(TextureAtlas textureAtlas){
-            coletavel1 = textureAtlas.findRegion("cristal1");
+        public AssetCoin(TextureAtlas textureAtlas){
+            coin = textureAtlas.findRegion("coin");
         }
     }
 
-    public class AssetColetavel2{
-        public final TextureAtlas.AtlasRegion coletavel2;
+    public class AssetCristal1 {
+        public final TextureAtlas.AtlasRegion cristal1;
 
-        public AssetColetavel2(TextureAtlas textureAtlas){
-            coletavel2 = textureAtlas.findRegion("coin");
+        public AssetCristal1(TextureAtlas textureAtlas){
+            cristal1 = textureAtlas.findRegion("cristal1");
+        }
+    }
+
+    public class AssetCristal2 {
+        public final TextureAtlas.AtlasRegion cristal2;
+
+        public AssetCristal2(TextureAtlas textureAtlas){
+            cristal2 = textureAtlas.findRegion("cristal2");
         }
     }
 

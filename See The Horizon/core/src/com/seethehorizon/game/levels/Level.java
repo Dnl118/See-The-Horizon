@@ -5,8 +5,9 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.seethehorizon.game.model.AbstractGameObject;
-import com.seethehorizon.game.model.Coletavel1;
-import com.seethehorizon.game.model.Coletavel2;
+import com.seethehorizon.game.model.Coin;
+import com.seethehorizon.game.model.Cristal1;
+import com.seethehorizon.game.model.Cristal2;
 import com.seethehorizon.game.model.Esgoto;
 import com.seethehorizon.game.model.Live;
 import com.seethehorizon.game.model.Predios;
@@ -22,11 +23,14 @@ public class Level {
 
     public enum BlockType {
         EMPTY(0, 0, 0), //preto
-        SOLO(0, 255, 0), //verde
+        SOLO(128, 0, 0), //marrom
         PLAYER_SPAWNPOINT(255, 255, 255), //branco
-        ITEM_COLETAVEL_1(255, 0, 255), //rosa
-        ITEM_COLETAVEL_2(255, 255, 0), //amarelo
-        EXTRA_LIVE(255,250, 0); //pensar em cor para vida extra
+        COIN(255, 255, 0), //amarelo
+        CRISTAL1(0, 255, 0), //verde lima
+        CRISTAL2(255, 0, 0), //vermelho
+        EXTRA_LIVE(255, 0, 255); //rosa
+
+        //AQUAL PARA GOAL = rgb: 0, 255, 255
 
         private int color;
 
@@ -44,8 +48,9 @@ public class Level {
     }
 
     public Will will;
-    public Array<Coletavel1> coletaveis1;
-    public Array<Coletavel2> coletaveis2;
+    public Array<Coin> coins;
+    public Array<Cristal1> cristais1;
+    public Array<Cristal2> cristais2;
     public Array<Live> extraLives;
     public Array<Solo> solos;
     public Predios predios;
@@ -59,8 +64,9 @@ public class Level {
         //personagem
         will = null;
         //objetos coletaveis
-        coletaveis1 = new Array<Coletavel1>();
-        coletaveis2 = new Array<Coletavel2>();
+        coins = new Array<Coin>();
+        cristais1 = new Array<Cristal1>();
+        cristais2 = new Array<Cristal2>();
         extraLives = new Array<Live>();
         //objetos do cenario
         solos = new Array<Solo>();
@@ -96,16 +102,21 @@ public class Level {
                     offsetHeight = -3.0f;
                     object.position.set(pixelX, baseHeight * object.dimension.y + offsetHeight);
                     will = (Will) object;
-                } else if (BlockType.ITEM_COLETAVEL_1.sameColor(currentPixel)) { //para coletavel 1
-                    object = new Coletavel1();
+                } else if (BlockType.COIN.sameColor(currentPixel)) { //para coin 1
+                    object = new Coin();
                     offsetHeight = -1.5f;
                     object.position.set(pixelX, baseHeight * object.dimension.y + offsetHeight);
-                    coletaveis1.add((Coletavel1) object);
-                } else if (BlockType.ITEM_COLETAVEL_2.sameColor(currentPixel)) {
-                    object = new Coletavel2();
+                    coins.add((Coin) object);
+                } else if (BlockType.CRISTAL1.sameColor(currentPixel)) { //para cristal1
+                    object = new Cristal1();
                     offsetHeight = -1.5f;
                     object.position.set(pixelX, baseHeight * object.dimension.y + offsetHeight);
-                    coletaveis2.add((Coletavel2) object);
+                    cristais1.add((Cristal1) object);
+                } else if (BlockType.CRISTAL2.sameColor(currentPixel)) { //para cristal2
+                    object = new Cristal2();
+                    offsetHeight = -1.5f;
+                    object.position.set(pixelX, baseHeight * object.dimension.y + offsetHeight);
+                    cristais2.add((Cristal2) object);
                 } else if(BlockType.EXTRA_LIVE.sameColor(currentPixel)){
                     object = new Live();
                     offsetHeight = -1.5f;
@@ -140,11 +151,17 @@ public class Level {
         for(Solo solo : solos){
             solo.update(deltaTime);
         }
-        for(Coletavel1 c1 : coletaveis1){
+        for(Coin c : coins){
+            c.update(deltaTime);
+        }
+        for(Cristal1 c1 : cristais1){
             c1.update(deltaTime);
         }
-        for(Coletavel2 c2 : coletaveis2){
+        for(Cristal2 c2 : cristais2){
             c2.update(deltaTime);
+        }
+        for(Live l : extraLives){
+            l.update(deltaTime);
         }
     }
 
@@ -154,14 +171,17 @@ public class Level {
         for (Solo solo : solos) {
             solo.render(batch);
         }
-        for(Coletavel1 c1 : coletaveis1){
+        for(Coin c : coins){
+            c.render(batch);
+        }
+        for(Cristal1 c1 : cristais1){
             c1.render(batch);
         }
-        for(Coletavel2 c2 : coletaveis2){
+        for(Cristal2 c2 : cristais2){
             c2.render(batch);
         }
-        for(Live live : extraLives){
-            live.render(batch);
+        for(Live l : extraLives){
+            l.render(batch);
         }
         will.render(batch);
     }

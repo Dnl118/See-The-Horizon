@@ -8,18 +8,18 @@ import com.seethehorizon.game.assets.Assets;
  * Created by Francisco on 16/04/2016.
  * Coeltavel que dara pontos ao Will
  */
-public class Coletavel1 extends AbstractGameObject {
+public class Coin extends AbstractGameObject {
 
-    private TextureRegion regColetavel1;
+    private TextureRegion regCoin;
     public boolean collected;
 
-    public Coletavel1(){
+    public Coin(){
         init();
     }
 
     private void init() {
         dimension.set(0.5f, 0.5f);
-        regColetavel1 = Assets.instance.coletavel1.coletavel1;
+        regCoin = Assets.instance.coin.coin;
         //seta bounding box para detectar colisao
         bounds.set(0, 0, dimension.x, dimension.y);
         collected = false;
@@ -32,7 +32,7 @@ public class Coletavel1 extends AbstractGameObject {
             return;
         }
         TextureRegion reg = null;
-        reg = regColetavel1;
+        reg = regCoin;
         batch.draw(reg.getTexture(), position.x, position.y,
                 origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y,
                 rotation, reg.getRegionX(), reg.getRegionY(),
@@ -41,6 +41,6 @@ public class Coletavel1 extends AbstractGameObject {
 
     public int getScore() {
         //retorna pontos que o coletavel da
-        return 50;
+        return 10;
     }
 }

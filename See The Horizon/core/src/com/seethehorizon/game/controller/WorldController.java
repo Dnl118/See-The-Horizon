@@ -1,12 +1,12 @@
 package com.seethehorizon.game.controller;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
 import com.seethehorizon.game.levels.Level;
-import com.seethehorizon.game.model.Coletavel1;
-import com.seethehorizon.game.model.Coletavel2;
+import com.seethehorizon.game.model.Coin;
+import com.seethehorizon.game.model.Cristal1;
+import com.seethehorizon.game.model.Cristal2;
 import com.seethehorizon.game.model.Live;
 import com.seethehorizon.game.model.Solo;
 import com.seethehorizon.game.model.Will;
@@ -25,6 +25,9 @@ public class WorldController {
     public Level level;
     public int lives;
     public int score;
+    public int qtdCoins;
+    public int qtdCristal1;
+    public int qtdCristal2;
 
     //rects para detectar colisoes
     private Rectangle rect1 = new Rectangle();
@@ -48,6 +51,9 @@ public class WorldController {
 
     private void initLevel() {
         score = 0;
+        qtdCoins = 0;
+        qtdCristal1 = 0;
+        qtdCristal2 = 0;
         level = new Level(Constants.LEVEL_01);
         cameraHelper.setTarget(level.will);
     }
@@ -98,7 +104,22 @@ public class WorldController {
             onCollisionWillWithSolo(solo);
         }
         //testa colisao com coletavel1
-        for (Coletavel1 c1 : level.coletaveis1) {
+        for (Coin c : level.coins) {
+            if (c.collected) {
+                //se ja foi coletado ja parte pro proximo
+                continue;
+            }
+            rect2.set(c.position.x, c.position.y,
+                    c.bounds.getWidth(), c.bounds.getHeight());
+            if (!rect1.overlaps(rect2)) {
+                //idem will com solo
+                continue;
+            }
+            onCollisionWillWithCoin(c);
+            break;
+        }
+        //testa colisao com coletavel1
+        for (Cristal1 c1 : level.cristais1) {
             if (c1.collected) {
                 //se ja foi coletado ja parte pro proximo
                 continue;
@@ -109,11 +130,11 @@ public class WorldController {
                 //idem will com solo
                 continue;
             }
-            onCollisionWillWithColetavel1(c1);
+            onCollisionWillWithCristal1(c1);
             break;
         }
         //testa colisao com coletavel2
-        for (Coletavel2 c2 : level.coletaveis2) {
+        for (Cristal2 c2 : level.cristais2) {
             if (c2.collected) {
                 //se ja foi coletado ja parte pro proximo
                 continue;
@@ -124,7 +145,7 @@ public class WorldController {
                 //idem will com solo
                 continue;
             }
-            onCollisionWillWithColetavel2(c2);
+            onCollisionWillWithCristal2(c2);
             break;
         }
         for(Live live : level.extraLives){
@@ -168,14 +189,23 @@ public class WorldController {
         }
     }
 
-    private void onCollisionWillWithColetavel1(Coletavel1 c1) {
+    private void onCollisionWillWithCoin(Coin c){
+        c.collected = true;
+        qtdCoins++;
+        score += c.getScore();
+        Gdx.app.log(TAG, "c coletado");
+    }
+
+    private void onCollisionWillWithCristal1(Cristal1 c1) {
         c1.collected = true;
+        qtdCristal1++;
         score += c1.getScore();
         Gdx.app.log(TAG, "c1 coletado");
     }
 
-    private void onCollisionWillWithColetavel2(Coletavel2 c2) {
+    private void onCollisionWillWithCristal2(Cristal2 c2) {
         c2.collected = true;
+        qtdCristal2++;
         score += c2.getScore();
         Gdx.app.log(TAG, "c2 coletado");
     }

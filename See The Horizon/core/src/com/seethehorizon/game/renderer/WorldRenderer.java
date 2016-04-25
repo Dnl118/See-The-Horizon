@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.seethehorizon.game.assets.Assets;
 import com.seethehorizon.game.controller.WorldController;
@@ -63,11 +62,31 @@ public class WorldRenderer implements Disposable {
         batch.end();
     }
 
-    private void renderGuiScore(SpriteBatch batch) {
+    private void renderGuiCoin(SpriteBatch batch) {
         float x = -15;
         float y = -15;
-        batch.draw(Assets.instance.coletavel1.coletavel1, x, y, 50, 50, 100, 100, 0.35f, -0.35f, 0);
-        Assets.instance.fonts.defaultBig.draw(batch, "" + worldController.score, x + 75, y + 37);
+        batch.draw(Assets.instance.coin.coin, x, y, 50, 50, 100, 100, 0.35f, -0.35f, 0);
+        Assets.instance.fonts.defaultBig.draw(batch, "" + worldController.qtdCoins, x + 75, y + 37);
+    }
+
+    private void renderGuiCristal1(SpriteBatch batch) {
+        float x = 80;
+        float y = -15;
+        batch.draw(Assets.instance.cristal1.cristal1, x, y, 50, 50, 100, 100, 0.35f, -0.35f, 0);
+        Assets.instance.fonts.defaultBig.draw(batch, "" + worldController.qtdCristal1, x + 75, y + 37);
+    }
+
+    private void renderGuiCristal2(SpriteBatch batch) {
+        float x = 175;
+        float y = -15;
+        batch.draw(Assets.instance.cristal2.cristal2, x, y, 50, 50, 100, 100, 0.35f, -0.35f, 0);
+        Assets.instance.fonts.defaultBig.draw(batch, "" + worldController.qtdCristal2, x + 75, y + 37);
+    }
+
+    public void renderGuiColetaveis(SpriteBatch batch){
+        renderGuiCoin(batch);
+        renderGuiCristal1(batch);
+        renderGuiCristal2(batch);
     }
 
     private void renderGuiExtraLive(SpriteBatch batch) {
@@ -106,7 +125,7 @@ public class WorldRenderer implements Disposable {
         batch.setProjectionMatrix(cameraGUI.combined);
         batch.begin();
         // desenha coletael1 coletados + texto no lado de cima esquerdo
-        renderGuiScore(batch);
+        renderGuiColetaveis(batch);
         // desenha vidas
         renderGuiExtraLive(batch);
         // desenha o fps
