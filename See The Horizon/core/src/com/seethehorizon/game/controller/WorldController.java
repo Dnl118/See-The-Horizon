@@ -7,6 +7,7 @@ import com.seethehorizon.game.levels.Level;
 import com.seethehorizon.game.model.Coin;
 import com.seethehorizon.game.model.Cristal1;
 import com.seethehorizon.game.model.Cristal2;
+import com.seethehorizon.game.model.End;
 import com.seethehorizon.game.model.Live;
 import com.seethehorizon.game.model.Solo;
 import com.seethehorizon.game.model.Will;
@@ -14,7 +15,7 @@ import com.seethehorizon.game.util.CameraHelper;
 import com.seethehorizon.game.util.Constants;
 
 /**
- * Created by Francisco on 03/04/2016.
+ * Created by Danilo on 03/04/2016.
  */
 public class WorldController {
 
@@ -28,12 +29,14 @@ public class WorldController {
     public int qtdCoins;
     public int qtdCristal1;
     public int qtdCristal2;
+    public boolean gameFinished;
 
     //rects para detectar colisoes
     private Rectangle rect1 = new Rectangle();
     private Rectangle rect2 = new Rectangle();
 
     private float timeToRespawn;
+    private float timetoRestart;
 
     private boolean accelerometerAvailable;
 
@@ -46,6 +49,8 @@ public class WorldController {
         cameraHelper = new CameraHelper();
         lives = Constants.LIVES_START;
         timeToRespawn = 0;
+        timetoRestart = Constants.TIME_TO_RESPAWN;
+        gameFinished = false;
         initLevel();
     }
 
@@ -59,32 +64,39 @@ public class WorldController {
     }
 
     public void update(float deltaTime) {
-        if(isGameOver()){
-            timeToRespawn -= deltaTime;
-            if(timeToRespawn < 0){
+        if (gameFinished) {
+            timetoRestart -= deltaTime;
+            if (timetoRestart < 0) {
                 init();
             }
         } else {
-            handleInputGame(deltaTime);
-        }
-        level.update(deltaTime);
-        testCollisions();
-        cameraHelper.update(deltaTime);
-        if(!isGameOver() && isWillInWater()){
-            lives--;
-            if(isGameOver()){
-                timeToRespawn = Constants.TIME_TO_RESPAWN;
+            if (isGameOver()) {
+                timeToRespawn -= deltaTime;
+                if (timeToRespawn < 0) {
+                    init();
+                }
             } else {
-                initLevel();
+                handleInputGame(deltaTime);
+            }
+            level.update(deltaTime);
+            testCollisions();
+            cameraHelper.update(deltaTime);
+            if (!isGameOver() && isWillInEsgoto()) {
+                lives--;
+                if (isGameOver()) {
+                    timeToRespawn = Constants.TIME_TO_RESPAWN;
+                } else {
+                    initLevel();
+                }
             }
         }
     }
 
-    public boolean isGameOver(){
+    public boolean isGameOver() {
         return lives < 0;
     }
 
-    public boolean isWillInWater () {
+    public boolean isWillInEsgoto() {
         return level.will.position.y < -5;
     }
 
@@ -148,8 +160,8 @@ public class WorldController {
             onCollisionWillWithCristal2(c2);
             break;
         }
-        for(Live live : level.extraLives){
-            if(live.collected){
+        for (Live live : level.extraLives) {
+            if (live.collected) {
                 continue;
             }
             rect2.set(live.position.x, live.position.y,
@@ -159,6 +171,16 @@ public class WorldController {
                 continue;
             }
             onCollisionWillWithLive(live);
+            break;
+        }
+        //verifica se chegou no final
+        for (End end : level.ends) {
+            rect2.set(end.position.x, end.position.y,
+                    end.bounds.getWidth(), end.bounds.getHeight());
+            if (!rect1.overlaps(rect2)) {
+                continue;
+            }
+            onCollisionWithEnd(end);
             break;
         }
     }
@@ -189,7 +211,7 @@ public class WorldController {
         }
     }
 
-    private void onCollisionWillWithCoin(Coin c){
+    private void onCollisionWillWithCoin(Coin c) {
         c.collected = true;
         qtdCoins++;
         score += c.getScore();
@@ -210,13 +232,18 @@ public class WorldController {
         Gdx.app.log(TAG, "c2 coletado");
     }
 
-    private void onCollisionWillWithLive(Live live){
+    private void onCollisionWillWithLive(Live live) {
         live.collected = true;
         score += live.getScore();
-        if(lives < Constants.MAX_LIVES) {
+        if (lives < Constants.MAX_LIVES) {
             lives += 1;
         }
         Gdx.app.log(TAG, "extra live coletado");
+    }
+
+    private void onCollisionWithEnd(End end) {
+        gameFinished = true;
+        Gdx.app.log(TAG, "chegou no final");
     }
 
     private void handleInputGame(float deltaTime) {

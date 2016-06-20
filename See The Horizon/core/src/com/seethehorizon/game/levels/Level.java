@@ -8,6 +8,7 @@ import com.seethehorizon.game.model.AbstractGameObject;
 import com.seethehorizon.game.model.Coin;
 import com.seethehorizon.game.model.Cristal1;
 import com.seethehorizon.game.model.Cristal2;
+import com.seethehorizon.game.model.End;
 import com.seethehorizon.game.model.Esgoto;
 import com.seethehorizon.game.model.Live;
 import com.seethehorizon.game.model.Predios;
@@ -15,7 +16,7 @@ import com.seethehorizon.game.model.Solo;
 import com.seethehorizon.game.model.Will;
 
 /**
- * Created by Francisco on 10/04/2016.
+ * Created by Danilo on 10/04/2016.
  */
 public class Level {
 
@@ -28,9 +29,8 @@ public class Level {
         COIN(255, 255, 0), //amarelo
         CRISTAL1(0, 255, 0), //verde lima
         CRISTAL2(255, 0, 0), //vermelho
-        EXTRA_LIVE(255, 0, 255); //rosa
-
-        //AQUAL PARA GOAL = rgb: 0, 255, 255
+        EXTRA_LIVE(255, 0, 255), //rosa
+        END(0, 255, 255);
 
         private int color;
 
@@ -53,6 +53,7 @@ public class Level {
     public Array<Cristal2> cristais2;
     public Array<Live> extraLives;
     public Array<Solo> solos;
+    public Array<End> ends;
     public Predios predios;
     public Esgoto esgoto;
 
@@ -70,6 +71,8 @@ public class Level {
         extraLives = new Array<Live>();
         //objetos do cenario
         solos = new Array<Solo>();
+        //cria barra invisivel para final
+        ends = new Array<End>();
         //carregando arquivo que representa um level
         Pixmap pixmap = new Pixmap(Gdx.files.internal(fileName));
         //scaneia pixmap (de cimapa esquerda para baixo direita)
@@ -117,11 +120,16 @@ public class Level {
                     offsetHeight = -1.5f;
                     object.position.set(pixelX, baseHeight * object.dimension.y + offsetHeight);
                     cristais2.add((Cristal2) object);
-                } else if(BlockType.EXTRA_LIVE.sameColor(currentPixel)){
+                } else if(BlockType.EXTRA_LIVE.sameColor(currentPixel)) {
                     object = new Live();
                     offsetHeight = -1.5f;
                     object.position.set(pixelX, baseHeight * object.dimension.y + offsetHeight);
                     extraLives.add((Live) object);
+                } else if(BlockType.END.sameColor(currentPixel)) {
+                    object = new End();
+                    offsetHeight = -1.5f;
+                    object.position.set(pixelX, baseHeight * object.dimension.y + offsetHeight);
+                    ends.add((End) object);
                 } else { //objeto desconhecido
                     //obtem rgb
                     int r = 0xff & (currentPixel >>> 24);

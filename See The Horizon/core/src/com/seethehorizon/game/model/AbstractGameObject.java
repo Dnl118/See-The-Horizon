@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Created by Francisco on 10/04/2016.
+ * Created by Danilo on 10/04/2016.
  */
 public abstract class AbstractGameObject {
 
@@ -20,7 +20,7 @@ public abstract class AbstractGameObject {
     public Vector2 velocity;
     public Vector2 maxVelocity; //determina velocidade maxima do ator
     public Vector2 friction; //forca que frea o ator
-    public Vector2 acceleration; //forca que acelerao ator
+    public Vector2 acceleration; //forca que acelera o ator
 
     //para delimitar "limite" do ator (tbm para detectar colisao futuramente)
     public Rectangle bounds;

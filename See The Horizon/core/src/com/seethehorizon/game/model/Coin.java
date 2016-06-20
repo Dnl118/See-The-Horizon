@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.seethehorizon.game.assets.Assets;
 
 /**
- * Created by Francisco on 16/04/2016.
+ * Created by Danilo on 16/04/2016.
  * Coeltavel que dara pontos ao Will
  */
 public class Coin extends AbstractGameObject {

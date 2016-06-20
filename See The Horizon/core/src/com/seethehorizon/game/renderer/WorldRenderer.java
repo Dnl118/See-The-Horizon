@@ -10,7 +10,7 @@ import com.seethehorizon.game.controller.WorldController;
 import com.seethehorizon.game.util.Constants;
 
 /**
- * Created by Francisco on 03/04/2016.
+ * Created by Danilo on 03/04/2016.
  */
 public class WorldRenderer implements Disposable {
 
@@ -121,6 +121,34 @@ public class WorldRenderer implements Disposable {
         fpsFont.setColor(1, 1, 1, 1); // white
     }
 
+    private void renderGuiGameOverMessage (SpriteBatch batch) {
+        //centralizando mensagem
+        float x = cameraGUI.viewportWidth / 2;
+        float y = cameraGUI.viewportHeight / 2;
+        if (worldController.isGameOver()) {
+            BitmapFont fontGameOver = Assets.instance.fonts.defaultBigText;
+            fontGameOver.setColor(1, 0, 0, 1);
+            //draw game over
+            String message = "GAME OVER!!";
+            fontGameOver.draw(batch, message, x, y, 0, message.length(), 1, 1, true);
+        }
+    }
+
+    private void renderGuiGameFinishedMessage(SpriteBatch batch){
+        //centralizando mensagem
+        float x = cameraGUI.viewportWidth / 2;
+        float y = cameraGUI.viewportHeight / 2;
+        if(worldController.gameFinished){
+            BitmapFont fontGameOver = Assets.instance.fonts.defaultBigText;
+            fontGameOver.setColor(0, 255, 0, 1);
+            //draw game over
+            String message = "CONGRATULATIONS!! \n " +
+                    "YOU FINISHED THE GAME!! \n" +
+                    "TOTAL SCORE: " + worldController.score;
+            fontGameOver.draw(batch, message, x, y, 0, message.length(), 1, 1, true);
+        }
+    }
+
     private void renderGui(SpriteBatch batch) {
         batch.setProjectionMatrix(cameraGUI.combined);
         batch.begin();
@@ -130,22 +158,10 @@ public class WorldRenderer implements Disposable {
         renderGuiExtraLive(batch);
         // desenha o fps
         renderGuiFpsCounter(batch);
+        //desenha gameover message
+        renderGuiGameOverMessage(batch);
+        //desenha game finished message
+        renderGuiGameFinishedMessage(batch);
         batch.end();
     }
-
-    private void renderGuiGameOverMessage (SpriteBatch batch) {
-        //centralizando mensagem
-        float x = cameraGUI.viewportWidth / 2;
-        float y = cameraGUI.viewportHeight / 2;
-        if (worldController.isGameOver()) {
-            BitmapFont fontGameOver = Assets.instance.fonts.defaultBig;
-            fontGameOver.setColor(1, 0.75f, 0.25f, 1);
-            //draw game over
-            fontGameOver.draw(batch, "GAME OVER", x, y, 0, 0, 0, 0, true);
-            //drawMultiLine(batch, "GAME OVER", x, y, 0,
-                   // Align.center);
-            fontGameOver.setColor(1, 1, 1, 1);
-        }
-    }
-
 }

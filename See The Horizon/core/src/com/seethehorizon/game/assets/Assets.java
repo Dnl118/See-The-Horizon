@@ -132,21 +132,26 @@ public class Assets implements Disposable, AssetErrorListener {
     public class AssetFonts{
         public final BitmapFont defaultSmall;
         public final BitmapFont defaultNormal;
-        public final BitmapFont defaultBig;
+        public final BitmapFont defaultBig; //para pontuação
+        public final BitmapFont defaultBigText; //para textos
+
 
         public AssetFonts(){
             // cria 3fontes  usando 15px bitmap
             defaultSmall = new BitmapFont(Gdx.files.internal("images/arial-15.fnt"), true);
             defaultNormal = new BitmapFont(Gdx.files.internal("images/arial-15.fnt"), true);
             defaultBig = new BitmapFont(Gdx.files.internal("images/arial-15.fnt"), true);
+            defaultBigText = new BitmapFont(Gdx.files.internal("images/arial-15.fnt"), true);
             // sseta tamanho das fontes
             defaultSmall.getData().setScale(0.75f); //getData armazena dados do bitdfontmap
             defaultNormal.getData().setScale(1.0f);
             defaultBig.getData().setScale(2.0f);
+            defaultBigText.getData().setScale(3.0f);
             // enable linear texture filtering for smooth fonts
             defaultSmall.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
             defaultNormal.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
             defaultBig.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+            defaultBigText.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
         }
     }
 

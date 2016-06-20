@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.seethehorizon.game.assets.Assets;
 
 /**
- * Created by Francisco on 10/04/2016.
+ * Created by Danilo on 10/04/2016.
  */
 public class Predios extends AbstractGameObject {
 
@@ -22,9 +22,7 @@ public class Predios extends AbstractGameObject {
 
     private void init() {
         dimension.set(10, 4);
-
         predios = Assets.instance.levelDecoration.predios;
-
         origin.x = -dimension.x * 2;
         length += dimension.x * 2;
     }

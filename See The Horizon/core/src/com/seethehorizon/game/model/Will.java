@@ -7,7 +7,7 @@ import com.seethehorizon.game.assets.Assets;
 import com.seethehorizon.game.util.Constants;
 
 /**
- * Created by Francisco on 16/04/2016.
+ * Created by Danilo on 16/04/2016.
  */
 public class Will extends AbstractGameObject {
 
@@ -50,7 +50,7 @@ public class Will extends AbstractGameObject {
         //cria bounding box para detectar colisao
         bounds.set(0, 0, dimension.x, dimension.y);
         //seta valores utilizados nos calculos da fisica do jogo
-        maxVelocity.set(3.0f, 4.0f);
+        maxVelocity.set(4.0f, 5.0f);
         friction.set(12.0f, 0.0f);
         acceleration.set(0.0f, -25.0f);
         //direcao para onde esta olhando

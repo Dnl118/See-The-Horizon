@@ -13,13 +13,13 @@ public class Constants{
 
     public static final String TEXTURE_ATLAS_OBJECTS = "images/see_the_horizon.pack";
 
-    public static final int LIVES_START = 3;
     public static final int MAX_LIVES = 3;
+    public static final int LIVES_START = MAX_LIVES;
 
     public static final float POWER_DURATION  = 5.0f;
 
     //tempo de espera para respawn do will
-    public static final float TIME_TO_RESPAWN = 3.0f;
+    public static final float TIME_TO_RESPAWN = 5.0f;
 
     //minimo de rotacao do acelerometro para iniciar movimento
     public static final float MIN_ANGLE_FOR_ACCELERATION = 5.0f;

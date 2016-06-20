@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.seethehorizon.game.assets.Assets;
 
 /**
- * Created by Francisco on 23/04/2016.
+ * Created by Danilo on 23/04/2016.
  */
 public class Live extends AbstractGameObject {
 
