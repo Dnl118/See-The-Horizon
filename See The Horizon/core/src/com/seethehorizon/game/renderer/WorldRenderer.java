@@ -157,7 +157,7 @@ public class WorldRenderer implements Disposable {
         // desenha vidas
         renderGuiExtraLive(batch);
         // desenha o fps
-        renderGuiFpsCounter(batch);
+        //renderGuiFpsCounter(batch);
         //desenha gameover message
         renderGuiGameOverMessage(batch);
         //desenha game finished message

@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.seethehorizon.game.util.Constants;
 
 /**
- * Created by Francisco on 10/04/2016.
+ * Created by Danilo on 10/04/2016.
  */
 public class Assets implements Disposable, AssetErrorListener {
 
@@ -68,6 +68,7 @@ public class Assets implements Disposable, AssetErrorListener {
         fonts.defaultSmall.dispose();
         fonts.defaultNormal.dispose();
         fonts.defaultBig.dispose();
+        fonts.defaultBigText.dispose();
     }
 
     @Override
